@@ -1,16 +1,15 @@
+import logging
 import os
 from collections import defaultdict
-import logging
+
 
 def setup_logging():
     logging.basicConfig(
         level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler('file_extensions.log'),
-            logging.StreamHandler()
-        ]
+        format="%(asctime)s - %(levelname)s - %(message)s",
+        handlers=[logging.FileHandler("file_extensions.log"), logging.StreamHandler()],
     )
+
 
 def find_all_extensions(directory):
     extensions = defaultdict(int)
@@ -24,11 +23,13 @@ def find_all_extensions(directory):
 
     return dict(sorted(extensions.items(), key=lambda item: item[1], reverse=True))
 
+
 def log_extensions(extensions):
     logging.info("Найденные расширения файлов:")
     for ext, count in extensions.items():
         logging.info(f"{ext}: {count} файлов")
     logging.info(f"Всего уникальных расширений: {len(extensions)}")
+
 
 def main():
     setup_logging()
@@ -40,6 +41,7 @@ def main():
 
     extensions = find_all_extensions(directory)
     log_extensions(extensions)
+
 
 if __name__ == "__main__":
     main()
